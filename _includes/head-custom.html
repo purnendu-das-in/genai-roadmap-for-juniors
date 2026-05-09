@@ -1,0 +1,34 @@
+<!-- Mermaid diagram support for GitHub Pages (cayman theme).
+     Kramdown turns ```mermaid blocks into <pre><code class="language-mermaid">…</code></pre>.
+     We rewrite those into <pre class="mermaid">…</pre> and let mermaid.js render them. -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+  function renderMermaid() {
+    document.querySelectorAll('pre > code.language-mermaid').forEach(code => {
+      const pre = code.parentElement;
+      const replacement = document.createElement('pre');
+      replacement.className = 'mermaid';
+      replacement.textContent = code.textContent;
+      pre.replaceWith(replacement);
+    });
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      securityLevel: 'loose',
+      flowchart: { htmlLabels: true, useMaxWidth: true }
+    });
+    mermaid.run({ querySelector: 'pre.mermaid' });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+</script>
+
+<style>
+  pre.mermaid { background: transparent; text-align: center; overflow-x: auto; }
+  pre.mermaid svg { max-width: 100%; height: auto; }
+</style>

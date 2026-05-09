@@ -13,7 +13,7 @@ This repo answers one question: **"I'm new — what do I actually need to learn,
 
 ```mermaid
 flowchart TD
-    S0([🧭 Stage 0<br/>Setup & Mindset]) --> S1([🐍 Stage 1<br/>Python Essentials])
+    S0(["🧭 Stage 0<br/>Setup & Mindset"]) --> S1(["🐍 Stage 1<br/>Python Essentials"])
     S1 --> S2([📐 Stage 2<br/>Just-Enough Math])
     S2 --> S3([🤖 Stage 3<br/>ML Foundations])
     S3 --> S4([🧠 Stage 4<br/>Deep Learning])
@@ -102,7 +102,7 @@ This is where GenAI starts.
 
 ```mermaid
 flowchart LR
-    T["Hello world"] -->|tokenizer| TOK["[15496, 995]"]
+    T["Hello world"] -->|tokenizer| TOK["IDs: 15496, 995"]
     TOK -->|embedding lookup| EMB[("vectors<br/>e.g. 768-dim each")]
     EMB --> ATT[Self-attention<br/>each token looks at every other]
     ATT --> FFN[Feed-forward<br/>+ residuals + layer norm]
@@ -320,21 +320,21 @@ For a learner doing the whole notebook end-to-end:
 ```mermaid
 gantt
     title 12-Week GenAI Sprint
-    dateFormat  X
-    axisFormat  W%w
+    dateFormat  YYYY-MM-DD
+    axisFormat  W%V
 
     section Foundations
-    Python + Math basics            :a1, 0, 2w
+    Python + Math basics            :a1, 2026-01-05, 14d
     section ML / DL
-    ML + Deep Learning              :a2, after a1, 2w
+    ML + Deep Learning              :a2, after a1, 14d
     section Applied
-    Transformers + LLM APIs         :a3, after a2, 2w
-    Prompt Engineering + RAG        :a4, after a3, 2w
+    Transformers + LLM APIs         :a3, after a2, 14d
+    Prompt Engineering + RAG        :a4, after a3, 14d
     section Advanced
-    Agents + Frameworks             :a5, after a4, 2w
+    Agents + Frameworks             :a5, after a4, 14d
     section Ship It
-    Capstone build                  :a6, after a5, 1w
-    Deployment + portfolio polish   :a7, after a6, 1w
+    Capstone build                  :a6, after a5, 7d
+    Deployment + portfolio polish   :a7, after a6, 7d
 ```
 
 | Weeks | Focus | Deliverable |
