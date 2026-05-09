@@ -5,7 +5,7 @@
 This repo answers one question: **"I'm new — what do I actually need to learn, in what order, and how do I prove I learned it?"** No 100-hour course lists, no theory marathons. Just the essentials, sequenced, with a hands-on notebook for every concept.
 
 - **Live site:** https://purnendu-das-in.github.io/genai-roadmap-for-juniors/
-- **Hands-on notebook:** [Python Code Samples.ipynb](Python%20Code%20Samples.ipynb) — 9 sections, ~6 hours, runs free in [Google Colab](https://colab.research.google.com/).
+- **Hands-on notebook:** [Python Code Samples.ipynb](https://github.com/purnendu-das-in/genai-roadmap-for-juniors/blob/main/Python%20Code%20Samples.ipynb) — 9 sections, ~6 hours, runs free in [Google Colab](https://colab.research.google.com/drive/1Lpdk15uITxlHoQesHdS-PSQlWSAtTQvf?usp=sharing/).
 
 ---
 
@@ -400,4 +400,3 @@ If you used this and got a job / built something cool, **open an issue and tell 
 
 ---
 
-⭐ **If this helped you, star the repo so the next beginner finds it.**
