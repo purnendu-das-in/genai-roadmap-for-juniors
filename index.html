@@ -1,0 +1,1431 @@
+---
+layout: null
+title: "GenAI Roadmap for Juniors & Career Switchers"
+description: "A no-fluff, beginner-first roadmap to break into Generative AI. Fourteen stages, one notebook, real timelines, real costs."
+permalink: /
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page.title }}</title>
+  <meta name="description" content="{{ page.description }}" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="author" content="Purnendu Das" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:description" content="{{ page.description }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://genai-roadmap.purnendudas.in/" />
+  <meta property="og:site_name" content="GenAI Roadmap" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ page.title }}" />
+  <meta name="twitter:description" content="{{ page.description }}" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome (used inside Mermaid diagrams; site icons are inline SVG) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ---------- design tokens ---------- */
+    :root {
+      --bg:        #ffffff;
+      --bg-soft:   #fafaf9;
+      --bg-tint:   #f5f5f4;
+      --ink:       #18181b;
+      --ink-2:     #27272a;
+      --muted:     #6b6f76;
+      --subtle:    #9ca3af;
+      --line:      #e7e5e4;
+      --line-2:    #f1efee;
+      --brand:     #1a1a1a;
+      --accent:    #0f766e;        /* deep teal */
+      --accent-2:  #115e59;
+      --highlight: #fef9c3;
+      --shadow:    0 1px 2px rgba(20,20,20,.04), 0 8px 24px -12px rgba(20,20,20,.10);
+      --radius:    14px;
+      --radius-sm: 10px;
+      --col:       720px;
+      --col-wide:  960px;
+      --page:      1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      letter-spacing: -0.005em;
+      font-feature-settings: "ss01", "cv11";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection { background: #fde68a; color: #111827; }
+
+    a { color: inherit; text-decoration: none; }
+    a.link { color: var(--accent); border-bottom: 1px solid rgba(15, 118, 110, .25); transition: border-color .15s ease, color .15s ease; }
+    a.link:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
+
+    /* ---------- top navigation ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--line-2);
+    }
+    .nav__inner {
+      max-width: var(--page);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; letter-spacing: -0.015em; color: var(--ink);
+    }
+    .brand__mark {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--ink); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .brand__mark svg { width: 16px; height: 16px; }
+    .nav__links {
+      display: none; gap: 24px; margin-left: 12px;
+      font-size: 14px; color: var(--muted);
+    }
+    .nav__links a { transition: color .15s ease; }
+    .nav__links a:hover { color: var(--ink); }
+    .nav__spacer { flex: 1; }
+    .nav__github {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 999px;
+      border: 1px solid var(--line); font-size: 14px; font-weight: 500;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .nav__github:hover { background: var(--bg-soft); border-color: #d6d3d1; }
+    .nav__github svg { width: 16px; height: 16px; }
+    @media (min-width: 880px) { .nav__links { display: inline-flex; } }
+
+    /* ---------- layout helpers ---------- */
+    .col       { max-width: var(--col);      margin: 0 auto; padding: 0 24px; }
+    .col-wide  { max-width: var(--col-wide); margin: 0 auto; padding: 0 24px; }
+    .page      { max-width: var(--page);     margin: 0 auto; padding: 0 24px; }
+
+    section { padding: 56px 0; }
+    section + section { border-top: 1px solid var(--line-2); }
+    @media (min-width: 768px) { section { padding: 80px 0; } }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .eyebrow::before {
+      content: ""; width: 18px; height: 1px; background: currentColor;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700; letter-spacing: -0.025em; color: var(--ink);
+      line-height: 1.2; margin: 0 0 16px;
+    }
+    h2 { font-size: 32px; letter-spacing: -0.03em; }
+    h3 { font-size: 22px; letter-spacing: -0.02em; }
+    h4 { font-size: 18px; }
+    @media (min-width: 768px) {
+      h2 { font-size: 40px; }
+    }
+
+    p { margin: 0 0 18px; }
+
+    .lede {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 400; font-size: 22px; line-height: 1.5; color: var(--ink-2);
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 768px) { .lede { font-size: 24px; } }
+
+    /* ---------- hero ---------- */
+    .hero { padding: 64px 0 40px; }
+    @media (min-width: 768px) { .hero { padding: 96px 0 56px; } }
+    .hero h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 500; font-variation-settings: "opsz" 144;
+      font-size: clamp(38px, 6.4vw, 64px);
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin: 18px 0 22px;
+    }
+    .hero h1 em {
+      font-style: italic; font-weight: 500; color: var(--accent);
+    }
+    .hero__meta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+      font-size: 14px; color: var(--muted); margin: 28px 0 32px;
+    }
+    .hero__meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--subtle); }
+    .hero__meta .author {
+      display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 500;
+    }
+    .avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, #0f766e 0%, #1e293b 100%);
+      color: #fff; font-weight: 600; font-size: 13px;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 999px;
+      font-size: 15px; font-weight: 500; letter-spacing: -0.005em;
+      transition: transform .12s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .btn svg { width: 16px; height: 16px; }
+    .btn--primary { background: var(--ink); color: #fff; }
+    .btn--primary:hover { background: #000; transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(0,0,0,.4); }
+    .btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .btn--ghost:hover { background: var(--bg-soft); border-color: #d6d3d1; }
+
+    /* ---------- stats strip ---------- */
+    .stats {
+      border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2);
+      padding: 28px 0;
+      background: var(--bg-soft);
+    }
+    .stats__grid {
+      max-width: var(--col-wide); margin: 0 auto; padding: 0 24px;
+      display: grid; gap: 24px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 768px) { .stats__grid { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
+    .stat {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .stat strong {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 500;
+      font-size: 36px; letter-spacing: -0.03em; line-height: 1;
+      color: var(--ink);
+    }
+    .stat span { font-size: 13px; color: var(--muted); letter-spacing: -0.005em; }
+
+    /* ---------- generic content (markdown-like) ---------- */
+    .prose p, .prose ul, .prose ol { font-size: 17px; line-height: 1.75; color: var(--ink-2); }
+    .prose ul, .prose ol { padding-left: 22px; margin: 0 0 22px; }
+    .prose li { margin: 6px 0; }
+    .prose strong { color: var(--ink); font-weight: 600; }
+    .prose code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.92em; padding: 1px 6px; border-radius: 5px;
+      background: var(--bg-tint); color: #1f2937;
+      border: 1px solid var(--line-2);
+    }
+    .prose blockquote {
+      margin: 22px 0; padding: 6px 0 6px 24px;
+      border-left: 3px solid var(--ink); color: var(--muted);
+      font-family: 'Fraunces', Georgia, serif; font-size: 19px; line-height: 1.55;
+      font-style: italic;
+    }
+    .prose blockquote strong { color: var(--ink); font-style: normal; }
+
+    /* ---------- audience cards ---------- */
+    .audience h2 { text-align: left; }
+    .cards-3 {
+      display: grid; gap: 18px;
+      grid-template-columns: 1fr;
+      margin-top: 28px;
+    }
+    @media (min-width: 768px) { .cards-3 { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+    .pcard {
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 28px 24px; background: var(--bg);
+      transition: border-color .15s ease, transform .15s ease;
+    }
+    .pcard:hover { border-color: #d6d3d1; transform: translateY(-2px); }
+    .pcard__icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--bg-tint); color: var(--ink); margin-bottom: 14px;
+    }
+    .pcard__icon svg { width: 20px; height: 20px; }
+    .pcard h3 { margin: 0 0 8px; font-size: 18px; }
+    .pcard p { margin: 0 0 14px; font-size: 15px; line-height: 1.6; color: var(--muted); }
+    .pcard__hint { font-size: 13px; color: var(--accent); font-weight: 500; }
+
+    /* ---------- callouts ---------- */
+    .callout {
+      border: 1px solid var(--line); border-left: 3px solid var(--accent);
+      background: var(--bg-soft);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px; margin: 24px 0;
+      font-size: 16px; color: var(--ink-2); line-height: 1.65;
+    }
+    .callout strong { color: var(--ink); }
+    .callout--warn { border-left-color: #b45309; }
+    .callout--ok   { border-left-color: #15803d; }
+
+    /* ---------- stage list ---------- */
+    .phase-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 32px; margin-bottom: 18px;
+      font-size: 12px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .phase-label::before { content: ""; width: 24px; height: 1px; background: var(--ink); }
+
+    .stage {
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 28px; margin: 14px 0; background: var(--bg);
+      transition: border-color .15s ease;
+    }
+    .stage:hover { border-color: #d6d3d1; }
+    .stage__head {
+      display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px;
+    }
+    .stage__icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--ink); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .stage__icon svg { width: 22px; height: 22px; }
+    .stage__title { flex: 1; }
+    .stage__num {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      color: var(--muted); letter-spacing: .04em; text-transform: uppercase;
+      display: block; margin-bottom: 2px;
+    }
+    .stage__title h3 { margin: 0; font-size: 22px; }
+    .stage__meta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      margin-top: 8px; font-size: 13px; color: var(--muted);
+    }
+    .stage__meta b { color: var(--ink); font-weight: 500; }
+    .difficulty { display: inline-flex; gap: 3px; align-items: center; }
+    .difficulty i {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--line); display: inline-block;
+    }
+    .difficulty i.on { background: var(--ink); }
+    .stage__body p, .stage__body ul, .stage__body ol { font-size: 16px; line-height: 1.7; color: var(--ink-2); }
+    .stage__body ul { padding-left: 20px; margin: 0 0 14px; }
+    .stage__body li { margin: 5px 0; }
+
+    .stage__tldr {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 18px; line-height: 1.55; color: var(--ink);
+      margin: 6px 0 18px; letter-spacing: -0.01em;
+    }
+    .ship {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 14px 16px; margin-top: 16px;
+      border-radius: var(--radius-sm); background: var(--bg-tint);
+      font-size: 15px; color: var(--ink-2);
+    }
+    .ship svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; color: var(--accent); }
+    .ship strong { color: var(--ink); }
+
+    /* ---------- tables ---------- */
+    .tbl-wrap { overflow-x: auto; margin: 18px 0; }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 15px;
+    }
+    thead th {
+      text-align: left; padding: 12px 14px;
+      font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid var(--line);
+    }
+    tbody td {
+      padding: 14px; border-bottom: 1px solid var(--line-2);
+      vertical-align: top; line-height: 1.55; color: var(--ink-2);
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
+    @media (max-width: 600px) { tbody td:first-child { white-space: normal; } }
+
+    /* ---------- mistakes / numbered list ---------- */
+    .numlist { list-style: none; padding: 0; margin: 0; counter-reset: nl; }
+    .numlist li {
+      counter-increment: nl;
+      display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--line-2);
+      font-size: 16px; line-height: 1.65; color: var(--ink-2);
+    }
+    .numlist li:last-child { border-bottom: none; }
+    .numlist li::before {
+      content: counter(nl, decimal-leading-zero);
+      font-family: 'JetBrains Mono', monospace; font-size: 13px;
+      color: var(--muted); padding-top: 2px;
+    }
+    .numlist strong { color: var(--ink); }
+
+    /* ---------- resources ---------- */
+    .reslist { display: grid; gap: 12px; grid-template-columns: 1fr; margin-top: 22px; }
+    @media (min-width: 700px) { .reslist { grid-template-columns: 1fr 1fr; } }
+    .res {
+      display: block; padding: 16px 18px;
+      border: 1px solid var(--line); border-radius: var(--radius-sm);
+      transition: border-color .15s ease, transform .15s ease;
+    }
+    .res:hover { border-color: var(--ink); transform: translateY(-1px); }
+    .res__name {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 600; color: var(--ink); margin-bottom: 4px;
+    }
+    .res__name svg { width: 13px; height: 13px; color: var(--muted); }
+    .res__desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+    /* ---------- mermaid ---------- */
+    pre.mermaid {
+      background: var(--bg-soft);
+      border: 1px solid var(--line-2);
+      border-radius: var(--radius);
+      padding: 28px 18px; text-align: center;
+      overflow-x: auto; margin: 24px 0;
+    }
+    pre.mermaid svg { max-width: 100%; height: auto; }
+
+    /* ---------- footer ---------- */
+    .foot {
+      border-top: 1px solid var(--line-2);
+      padding: 56px 0 80px;
+      color: var(--muted); font-size: 14px;
+    }
+    .foot__inner {
+      max-width: var(--col-wide); margin: 0 auto; padding: 0 24px;
+      display: flex; flex-wrap: wrap; gap: 18px 32px;
+      align-items: center; justify-content: space-between;
+    }
+    .foot a { color: var(--ink); border-bottom: 1px solid var(--line); }
+    .foot a:hover { border-bottom-color: var(--ink); }
+
+    /* ---------- divider ---------- */
+    .ornament {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin: 40px 0;
+      color: var(--subtle);
+    }
+    .ornament i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; display: inline-block; }
+
+    /* ---------- TOC reading aside (desktop) ---------- */
+    .reading-row { display: block; }
+    @media (min-width: 1100px) {
+      .reading-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 64px; max-width: var(--col-wide); margin: 0 auto; padding: 0 24px; }
+      .reading-row .col { padding: 0; }
+    }
+    .toc {
+      position: sticky; top: 80px;
+      font-size: 13px; line-height: 1.6; padding: 8px 0;
+    }
+    .toc__title {
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; margin-bottom: 12px;
+    }
+    .toc a {
+      display: block; padding: 4px 0; color: var(--muted);
+      border-left: 2px solid transparent; padding-left: 10px;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .toc a:hover, .toc a.active { color: var(--ink); border-left-color: var(--ink); }
+    @media (max-width: 1099px) { .toc { display: none; } }
+  </style>
+</head>
+<body>
+
+  <!-- ============== NAV ============== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="brand" href="/">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+        </span>
+        <span>GenAI Roadmap</span>
+      </a>
+      <nav class="nav__links">
+        <a href="#journey">Journey</a>
+        <a href="#stages">Stages</a>
+        <a href="#toolkit">Toolkit</a>
+        <a href="#plan">12-week plan</a>
+        <a href="#resources">Resources</a>
+        <a href="#glossary">Glossary</a>
+      </nav>
+      <span class="nav__spacer"></span>
+      <a class="nav__github" href="https://github.com/purnendu-das-in/genai-roadmap-for-juniors" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12.02c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.7-3.87-1.55-3.87-1.55-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.78 2.7 1.27 3.36.97.1-.75.4-1.27.73-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.67.8.55C20.22 21.43 23.5 17.11 23.5 12.02 23.5 5.65 18.35.5 12 .5z"/></svg>
+        Star on GitHub
+      </a>
+    </div>
+  </header>
+
+  <!-- ============== HERO ============== -->
+  <section class="hero">
+    <div class="col">
+      <span class="eyebrow">2026 Edition · Updated regularly</span>
+      <h1>The GenAI roadmap I wish I'd had <em>when I started</em>.</h1>
+      <p class="lede">Fourteen stages, hand-picked. One notebook, nine sections. No 100-hour course lists. No theory marathons. The essentials, sequenced — with a hands-on cell for every concept that matters.</p>
+
+      <div class="hero__meta">
+        <span class="author">
+          <span class="avatar">PD</span>
+          Purnendu Das
+        </span>
+        <span class="dot"></span>
+        <span>~22 min read</span>
+        <span class="dot"></span>
+        <span>14 stages · 12-week sprint</span>
+        <span class="dot"></span>
+        <span>Last revised 2026</span>
+      </div>
+
+      <div class="ctas">
+        <a class="btn btn--primary" href="#stages">
+          Start the roadmap
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="https://colab.research.google.com/drive/1Lpdk15uITxlHoQesHdS-PSQlWSAtTQvf?usp=sharing/" target="_blank" rel="noopener">
+          Open notebook in Colab
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== STATS ============== -->
+  <div class="stats">
+    <div class="stats__grid">
+      <div class="stat"><strong>14</strong><span>stages, sequenced</span></div>
+      <div class="stat"><strong>12 wks</strong><span>part-time, suggested</span></div>
+      <div class="stat"><strong>$0</strong><span>minimum to reach Stage 10</span></div>
+      <div class="stat"><strong>9</strong><span>hands-on notebook sections</span></div>
+    </div>
+  </div>
+
+  <!-- ============== WHO IT'S FOR ============== -->
+  <section class="audience">
+    <div class="col">
+      <span class="eyebrow">Who this is for</span>
+      <h2>Three people, one path.</h2>
+      <p class="prose" style="color: var(--muted); max-width: 56ch;">This roadmap doesn't pretend everyone starts from the same place. Pick the lane that matches you and skip the parts you've already lived through.</p>
+
+      <div class="cards-3">
+        <article class="pcard">
+          <span class="pcard__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6"/><path d="M2 10 12 5l10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </span>
+          <h3>Students &amp; juniors</h3>
+          <p>You've written code in school or on the side. You want a clear path that doesn't waste a single weekend on theory you won't use for two years.</p>
+          <span class="pcard__hint">Start at Stage 0 — and don't skip.</span>
+        </article>
+
+        <article class="pcard">
+          <span class="pcard__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </span>
+          <h3>Software engineers pivoting</h3>
+          <p>You ship production code already. You don't need Python 101. You want the GenAI-specific parts compressed into weeks, not months — with the gotchas spelled out.</p>
+          <span class="pcard__hint">Skim Stages 0–4. Start at Stage 5.</span>
+        </article>
+
+        <article class="pcard">
+          <span class="pcard__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-5"/></svg>
+          </span>
+          <h3>PMs, analysts, ops folk</h3>
+          <p>You read code but rarely write production systems. You want enough mental model to talk shop with engineers and ship credible internal tools.</p>
+          <span class="pcard__hint">Lean on the toolkit, projects, and glossary.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== JOURNEY ============== -->
+  <section id="journey">
+    <div class="col-wide">
+      <span class="eyebrow">The journey at a glance</span>
+      <h2>Fourteen stages, end to end.</h2>
+      <p class="prose" style="color: var(--muted); max-width: 60ch;">Foundations to fine-tuning, prototype to production. Each stage compounds on the last — that's why skipping kills you later.</p>
+
+<pre class="mermaid">
+flowchart TD
+    S0(["fa:fa-compass Stage 0<br/>Setup &amp; Mindset"]) --> S1(["fa:fa-code Stage 1<br/>Python Essentials"])
+    S1 --> S2(["fa:fa-square-root-variable Stage 2<br/>Just-Enough Math"])
+    S2 --> S3(["fa:fa-microchip Stage 3<br/>ML Foundations"])
+    S3 --> S4(["fa:fa-network-wired Stage 4<br/>Deep Learning"])
+    S4 --> S5(["fa:fa-language Stage 5<br/>NLP &amp; Transformers"])
+    S5 --> S6(["fa:fa-robot Stage 6<br/>LLMs"])
+    S6 --> S7(["fa:fa-pen-to-square Stage 7<br/>Prompt Engineering"])
+    S7 --> S8(["fa:fa-database Stage 8<br/>RAG"])
+    S8 --> S9(["fa:fa-screwdriver-wrench Stage 9<br/>Frameworks"])
+    S9 --> S10(["fa:fa-diagram-project Stage 10<br/>Agents"])
+    S10 --> S11(["fa:fa-sliders Stage 11<br/>Fine-tuning"])
+    S11 --> S12(["fa:fa-rocket Stage 12<br/>Deployment"])
+    S12 --> S13(["fa:fa-shield-halved Stage 13<br/>Responsible AI"])
+    S13 --> JOB{{"fa:fa-briefcase Portfolio<br/>+ Interviews"}}
+
+    classDef foundation fill:#f5f5f4,stroke:#a8a29e,color:#1c1917,rx:6,ry:6
+    classDef ml fill:#ecfdf5,stroke:#34d399,color:#064e3b,rx:6,ry:6
+    classDef applied fill:#fffbeb,stroke:#fbbf24,color:#78350f,rx:6,ry:6
+    classDef advanced fill:#f5f3ff,stroke:#a78bfa,color:#4c1d95,rx:6,ry:6
+    classDef ship fill:#eff6ff,stroke:#60a5fa,color:#1e3a8a,rx:6,ry:6
+
+    class S0,S1,S2 foundation
+    class S3,S4,S5 ml
+    class S6,S7,S8 applied
+    class S9,S10,S11 advanced
+    class S12,S13,JOB ship
+</pre>
+
+      <div class="callout">
+        <strong>Already a software engineer?</strong> Skim Stages 0–4 in a weekend and start at Stage 5. The transformers chapter is where this roadmap actually earns its keep.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== HOW TO USE ============== -->
+  <section>
+    <div class="col">
+      <span class="eyebrow">How to use this</span>
+      <h2>Five rules, no exceptions.</h2>
+
+      <ol class="numlist" style="margin-top: 24px;">
+        <li><span><strong>Go in order.</strong> Each stage builds on the previous — skipping creates fragile knowledge that collapses the moment you hit something real.</span></li>
+        <li><span><strong>Aim for working understanding, not perfection.</strong> You'll deepen as you build. Forty percent comprehension plus shipping beats ninety percent comprehension plus paralysis.</span></li>
+        <li><span><strong>Code beats theory.</strong> Build the listed mini-project at the end of each stage, even if it's ugly. The portfolio <em>is</em> the credential.</span></li>
+        <li><span><strong>Time-box ruthlessly.</strong> If a stage takes more than 1.5× the suggested time, simplify and move on. The next stage often clarifies what confused you in this one.</span></li>
+        <li><span><strong>Keep one notebook open.</strong> The <a class="link" href="https://colab.research.google.com/drive/1Lpdk15uITxlHoQesHdS-PSQlWSAtTQvf?usp=sharing/">Colab notebook</a> mirrors the stages — run cells as you progress, change inputs, break things.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============== STAGES ============== -->
+  <section id="stages">
+    <div class="col">
+      <span class="eyebrow">The roadmap</span>
+      <h2>The fourteen stages.</h2>
+      <p class="prose" style="color: var(--muted);">Each stage answers three questions: <em>what is this</em>, <em>why does it matter</em>, and <em>what's the smallest thing I can ship to prove I learned it</em>.</p>
+
+      <!-- ===== Phase 1 ===== -->
+      <div class="phase-label">Phase 01 · Foundations</div>
+
+      <!-- Stage 0 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 00</span>
+            <h3>Mindset &amp; Setup</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1–2 hours</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i></i><i></i></span>
+              <span><b>Prereq:</b> a laptop</span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">GenAI models predict <em>tokens</em> — they don't think and they don't look things up by default. Internalize that, set up your tools, and you've already passed the bar most learners trip over.</p>
+        <div class="stage__body">
+          <ul>
+            <li><strong>Install:</strong> Python 3.10+, VS Code, Git, a GitHub account.</li>
+            <li><strong>Learn:</strong> the command line, virtual environments (<code>venv</code> or <code>conda</code>), and the four Git verbs you'll use forever — <code>clone</code>, <code>commit</code>, <code>push</code>, <code>pull</code>.</li>
+            <li><strong>Sign up (free tiers):</strong> <a class="link" href="https://aistudio.google.com/">Google AI Studio</a> (most generous in 2026), <a class="link" href="https://huggingface.co/">Hugging Face</a> (open weights + free hosting), and one paid account — <a class="link" href="https://platform.openai.com/">OpenAI</a> or <a class="link" href="https://console.anthropic.com/">Anthropic</a>. Tiny credits go a long way at the Haiku / mini tier.</li>
+          </ul>
+          <div class="ship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Ship:</strong> a "hello world" Python repo on GitHub. Runs locally. That's the entire deliverable.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 1 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 01</span>
+            <h3>Python Essentials</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1–2 weeks</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i></i><i></i></span>
+              <span><b>Skip if:</b> you've shipped Python before</span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">You don't need to master Python. You need to be fluent in the 30% of the language that GenAI code actually uses.</p>
+        <div class="stage__body">
+          <ul>
+            <li>Variables, types, control flow, functions, classes.</li>
+            <li>Files, JSON, and HTTP APIs (<code>requests</code>).</li>
+            <li><code>numpy</code> (arrays), <code>pandas</code> (tables), <code>matplotlib</code> (plots).</li>
+            <li>Exception handling, list/dict comprehensions, f-strings, type hints.</li>
+          </ul>
+          <div class="ship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Ship:</strong> a ~50-line script that reads a CSV, computes something, calls a public API, and writes the result to JSON.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 2 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h12l-7 8 7 8H3"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 02</span>
+            <h3>Math (Just Enough)</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 2–4 days</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i></i></span>
+              <span><b>Goal:</b> intuition, not proofs</span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">You don't need a math degree. You need to look at a paper's diagram and not feel lost.</p>
+        <div class="stage__body">
+          <ul>
+            <li><strong>Linear algebra:</strong> vectors, matrices, dot products — and why "similarity" has a geometric meaning.</li>
+            <li><strong>Probability:</strong> distributions, expectation, why softmax exists.</li>
+            <li><strong>Calculus:</strong> what a gradient is and why "going downhill" trains a model.</li>
+          </ul>
+          <div class="callout"><strong>Honest take:</strong> 80% of practitioners use 5% of the math 95% of the time. Don't let Khan Academy become a six-month detour.</div>
+        </div>
+      </article>
+
+      <!-- ===== Phase 2 ===== -->
+      <div class="phase-label">Phase 02 · Core ML</div>
+
+      <!-- Stage 3 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 14h3"/><path d="M1 9h3"/><path d="M1 14h3"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 03</span>
+            <h3>Machine Learning Foundations</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1 week</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i></i></span>
+              <span><b>Tool:</b> scikit-learn</span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">Before you train a transformer, train a logistic regression. The vocabulary is the same.</p>
+        <div class="stage__body">
+          <ul>
+            <li>Supervised vs unsupervised vs reinforcement.</li>
+            <li>Train/validation/test splits, <strong>overfitting</strong>, the bias-variance tradeoff.</li>
+            <li>Metrics: accuracy, precision, recall, F1, MSE, perplexity. Pick the right one for the right task.</li>
+            <li>scikit-learn on a small tabular dataset (Iris, Titanic) — feel the workflow.</li>
+            <li>One neuron → forward pass → loss → backprop → gradient descent. Karpathy's <em>micrograd</em> is the gold standard.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Stage 4 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><path d="M8 6h2"/><path d="M14 6h2"/><path d="M8 18h2"/><path d="M14 18h2"/><path d="m7.4 7.4 3.2 3.2"/><path d="m13.4 13.4 3.2 3.2"/><path d="m16.6 7.4-3.2 3.2"/><path d="m10.6 13.4-3.2 3.2"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 04</span>
+            <h3>Deep Learning Basics</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1–2 weeks</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i></i></span>
+              <span><b>Pick one:</b> PyTorch (recommended)</span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">Pick PyTorch. Train three small models. Move on. Don't build a custom CUDA kernel.</p>
+        <div class="stage__body">
+          <ul>
+            <li>Tensors, layers, activations (ReLU, GELU), losses, optimizers (SGD, Adam).</li>
+            <li>One framework — <strong>PyTorch</strong> (every modern paper) or Keras.</li>
+            <li>Build end-to-end: a tiny <strong>MLP</strong> for MNIST, a small <strong>CNN</strong> for CIFAR-10, a character-level <strong>RNN/Transformer</strong> for text.</li>
+          </ul>
+          <div class="ship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Ship:</strong> a network that beats random on a real dataset, saved as a notebook with charts that prove it.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 5 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 05</span>
+            <h3>NLP &amp; Transformers</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1 week</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i></i></span>
+              <span><b>Why it matters:</b> this is GenAI's core</span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">Text becomes numbers, numbers become attention, attention becomes a model that finishes your sentence. Get the picture, not the matrix algebra.</p>
+
+<pre class="mermaid">
+flowchart LR
+    T["Hello world"] -->|tokenizer| TOK["IDs: 15496, 995"]
+    TOK -->|embedding lookup| EMB[("vectors<br/>e.g. 768-dim each")]
+    EMB --> ATT[Self-attention<br/>each token looks at every other]
+    ATT --> FFN[Feed-forward<br/>+ residuals + layer norm]
+    FFN -.repeat N layers.-> OUT[Logits over vocabulary]
+    OUT -->|argmax / sampling| NEXT["next token: '!'"]
+    NEXT -.feed back.-> T
+
+    classDef in fill:#fffbeb,stroke:#fbbf24
+    classDef proc fill:#eff6ff,stroke:#60a5fa
+    classDef out fill:#ecfdf5,stroke:#34d399
+    class T,TOK in
+    class EMB,ATT,FFN proc
+    class OUT,NEXT out
+</pre>
+
+        <div class="stage__body">
+          <ul>
+            <li><strong>Tokenization:</strong> how text becomes numbers (BPE, SentencePiece). Words ≠ tokens.</li>
+            <li><strong>Embeddings:</strong> vectors that capture meaning. Similar meaning, similar vectors.</li>
+            <li><strong>Attention:</strong> the mechanism that lets a model "look at" earlier tokens with different weights.</li>
+            <li><strong>Encoder vs decoder vs encoder-decoder:</strong> BERT (encoder, understanding), GPT/Llama/Claude (decoder, generation), T5/BART (both).</li>
+            <li><strong>Hands-on:</strong> <a class="link" href="https://huggingface.co/docs/transformers">Hugging Face Transformers</a> — load a model, run <code>pipeline(...)</code>, inspect outputs.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ===== Phase 3 ===== -->
+      <div class="phase-label">Phase 03 · Applied LLMs</div>
+
+      <!-- Stage 6 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 06</span>
+            <h3>Large Language Models</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 3–5 days</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i></i><i></i></span>
+              <span><b>Knobs you'll use daily</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">An LLM is a tokenizer wrapped around a transformer wrapped around a prompt. Knowing the four knobs — <em>context, tokens, temperature, top-p</em> — covers 90% of what you'll touch.</p>
+        <div class="stage__body">
+          <ul>
+            <li><strong>Pre-training</strong> (next-token prediction on the internet) → <strong>post-training</strong> (instruction tuning + RLHF/DPO to make it useful and safe).</li>
+            <li><strong>Open-weight vs closed:</strong> Llama, Mistral, Qwen, DeepSeek, Gemma (open) vs GPT, Claude, Gemini (closed APIs).</li>
+            <li><strong>Context window</strong> — how much text the model can "see" (now 128K–2M tokens depending on model).</li>
+            <li><strong>Tokens</strong> — the billing and length unit. ~1 token ≈ 4 English characters or ¾ of a word.</li>
+            <li><strong>Temperature</strong> — 0 = deterministic, 1 = creative, &gt;1 = chaotic. Default 0.2–0.7.</li>
+            <li><strong>top-p / top-k</strong> — alternative sampling controls. Stick with temperature unless you have a reason.</li>
+          </ul>
+          <div class="ship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Ship:</strong> call a hosted LLM (Gemini in the notebook), then run a small open model locally with <a class="link" href="https://ollama.com/">Ollama</a>.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 7 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 07</span>
+            <h3>Prompt Engineering</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 3–5 days</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i></i><i></i></span>
+              <span><b>The first lever</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">Most "we need fine-tuning" problems are actually "we need a tighter prompt and a Pydantic schema."</p>
+        <div class="stage__body">
+          <ul>
+            <li><strong>Zero-shot, few-shot, chain-of-thought.</strong></li>
+            <li><strong>Roles:</strong> <code>system</code> (rules), <code>user</code> (input), <code>assistant</code> (response). Use them.</li>
+            <li><strong>Structured output:</strong> ask for JSON; better, use the model's <em>structured-output</em> mode (<code>response_format</code>, <code>with_structured_output</code>). Validate with <strong>Pydantic</strong>.</li>
+            <li><strong>Function / tool calling:</strong> the model returns <em>which function to call</em> with <em>what arguments</em>; your code runs it and feeds the result back.</li>
+            <li><strong>Pitfalls:</strong> hallucinations, prompt injection (user input overrides system rules), context drift in long chats.</li>
+          </ul>
+
+<pre class="mermaid">
+flowchart LR
+    P[Prompt] --> M{Did it work?}
+    M -->|Yes| DONE["fa:fa-check Ship it"]
+    M -->|Mostly. Bad format| P1[Tighten the prompt<br/>+ JSON / Pydantic schema]
+    M -->|It does not know my data| RAG[Add RAG<br/>Stage 8]
+    M -->|Wrong style/skill, even with examples| FT[Fine-tune<br/>Stage 11]
+    P1 --> P
+    RAG --> DONE
+    FT --> DONE
+
+    classDef good fill:#ecfdf5,stroke:#34d399
+    classDef warn fill:#fffbeb,stroke:#fbbf24
+    class DONE good
+    class P1,RAG,FT warn
+</pre>
+
+          <div class="callout callout--warn">
+            <strong>Always try in this order:</strong> Prompt → RAG → Fine-tune. Each step costs 10–100× more effort than the previous. Don't skip ahead.
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 8 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 08</span>
+            <h3>RAG · Retrieval-Augmented Generation</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1 week</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i></i></span>
+              <span><b>The most useful pattern in industry</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">LLMs don't know your data. RAG fixes that without retraining anything — you bolt search onto generation and let the model quote from your docs.</p>
+
+<pre class="mermaid">
+flowchart LR
+    subgraph INDEX["Build (offline, once)"]
+        D[Your docs<br/>PDFs, wiki, tickets] --> CH[Chunk<br/>~300–800 tokens]
+        CH --> EMB1[Embedding model<br/>e.g. all-MiniLM-L6-v2]
+        EMB1 --> VDB[(Vector DB<br/>FAISS / Chroma / Qdrant)]
+    end
+
+    subgraph QUERY["Answer (every request)"]
+        Q[User question] --> EMB2[Same embedding model]
+        EMB2 --> SEARCH[Top-k similarity search]
+        VDB --> SEARCH
+        SEARCH --> CTX[Top chunks = context]
+        CTX --> PROMPT[Prompt = system + context + question]
+        PROMPT --> LLM[LLM]
+        LLM --> A[Grounded answer<br/>with citations]
+    end
+
+    classDef offline fill:#eff6ff,stroke:#60a5fa
+    classDef online fill:#ecfdf5,stroke:#34d399
+    class D,CH,EMB1,VDB offline
+    class Q,EMB2,SEARCH,CTX,PROMPT,LLM,A online
+</pre>
+
+        <div class="stage__body">
+          <ul>
+            <li><strong>Why RAG:</strong> LLMs don't know your data and have a knowledge cutoff. Inject relevant snippets into the prompt at query time.</li>
+            <li><strong>Embeddings &amp; vector DBs:</strong> FAISS (local, free), Chroma (simple), Qdrant (production OSS), Pinecone (managed).</li>
+            <li><strong>Chunking:</strong> start with <code>RecursiveCharacterTextSplitter</code>, ~500 tokens, ~50 overlap. Tune later.</li>
+            <li><strong>Re-ranking:</strong> add a cross-encoder (e.g. <code>bge-reranker</code>) on top-20 → top-3 for big quality wins.</li>
+          </ul>
+          <div class="ship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Ship:</strong> "Chat with your PDF" — upload a PDF, ask questions, get cited answers. (Section 6 of the notebook.)</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ===== Phase 4 ===== -->
+      <div class="phase-label">Phase 04 · Production</div>
+
+      <!-- Stage 9 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 09</span>
+            <h3>Frameworks &amp; Tooling</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1 week</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i></i><i></i></span>
+              <span><b>Pick one and commit</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">The frameworks aren't magic. They're glue. Pick the one with the docs you can read and the failures you can debug.</p>
+        <div class="stage__body">
+          <ul>
+            <li><strong>Orchestration:</strong> <strong>LangChain</strong> (broadest) or <strong>LlamaIndex</strong> (RAG-first). Pick one.</li>
+            <li><strong>Validation:</strong> <strong>Pydantic v2</strong> — your defense against malformed LLM output.</li>
+            <li><strong>UIs in &lt;50 lines:</strong> <strong>Gradio</strong> (great for ML demos) or <strong>Streamlit</strong> (great for dashboards).</li>
+            <li><strong>Observability:</strong> <strong>LangSmith</strong>, <strong>Langfuse</strong>, or <strong>Phoenix</strong> — see every prompt, response, and tool call.</li>
+            <li><strong>Experiment tracking (optional):</strong> Weights &amp; Biases, MLflow.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Stage 10 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 10</span>
+            <h3>Agents &amp; Multi-step Workflows</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1–2 weeks</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i class="on"></i></span>
+              <span><b>The hot frontier</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">Agent = LLM + tools + memory + a loop. Most "agent failures" are actually loops without limits and tools without tests.</p>
+
+<pre class="mermaid">
+flowchart LR
+    U[User goal] --> AG{LLM<br/>plans next step}
+    AG -->|"Thought:<br/>I need to search the docs"| TOOL[Pick a tool<br/>+ arguments]
+    TOOL --> EXEC[Run tool<br/>search / API / code]
+    EXEC -->|"Observation"| AG
+    AG -->|"I have enough info"| ANS[Final answer]
+
+    classDef think fill:#fffbeb,stroke:#fbbf24
+    classDef act fill:#eff6ff,stroke:#60a5fa
+    classDef done fill:#ecfdf5,stroke:#34d399
+    class AG think
+    class TOOL,EXEC act
+    class ANS done
+</pre>
+
+        <div class="stage__body">
+          <ul>
+            <li>The <strong>ReAct</strong> pattern (Reason → Act → Observe → repeat) is the foundation.</li>
+            <li><strong>Tool use / function calling:</strong> the LLM emits a JSON call; your runtime executes it and returns the result.</li>
+            <li><strong>Frameworks:</strong> <strong>LangGraph</strong> (graphs, controllable, recommended), <strong>CrewAI</strong> (role-based), <strong>AutoGen</strong> (multi-agent chat), <strong>OpenAI Agents SDK</strong>.</li>
+            <li><strong>Watch out for:</strong> infinite loops (always cap iterations), runaway costs (log every call), bad tools (a flaky tool poisons the whole agent).</li>
+          </ul>
+          <div class="ship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Ship:</strong> a research agent — takes a question, searches the web (or your KB), writes a 1-page report.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 11 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 11</span>
+            <h3>Fine-tuning &amp; Customization <span style="color:var(--muted);font-weight:400;font-size:14px;">— optional</span></h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1–2 weeks</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i class="on"></i></span>
+              <span><b>Skip until you can't</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">Fine-tune for <em>style, tone, domain language, format</em>. Almost never for adding facts — that's RAG's job.</p>
+        <div class="stage__body">
+          <ul>
+            <li><strong>LoRA / QLoRA</strong> — train a small "adapter" instead of the full model. Runs on a single consumer GPU.</li>
+            <li><strong>Datasets:</strong> quality &gt; quantity. 500 hand-curated examples beat 50,000 noisy ones.</li>
+            <li><strong>Evaluation:</strong> build an eval set <em>before</em> you fine-tune. If you can't measure it, you can't improve it.</li>
+            <li><strong>Tools:</strong> Hugging Face <code>peft</code> + <code>trl</code>, <a class="link" href="https://github.com/unslothai/unsloth">Unsloth</a>, <a class="link" href="https://github.com/OpenAccess-AI-Collective/axolotl">Axolotl</a>.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Stage 12 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 12</span>
+            <h3>Deployment &amp; Productionization</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> 1 week</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i></i></span>
+              <span><b>The portfolio multiplier</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">A demo on your laptop is a story. A public URL is a credential.</p>
+
+<pre class="mermaid">
+flowchart LR
+    DEV[Notebook<br/>that works] --> APP[FastAPI / Flask app<br/>+ Pydantic schemas]
+    APP --> DOCK[Dockerfile<br/>requirements.txt]
+    DOCK --> HOST{{Where?}}
+    HOST --> HF["fa:fa-server HF Spaces<br/>free, easy"]
+    HOST --> RND[Render<br/>free tier]
+    HOST --> RAIL["Railway<br/>$5/mo Hobby"]
+    HOST --> CLOUD[AWS / GCP / Azure<br/>full control]
+
+    APP --> OBS[Observability<br/>LangSmith / Langfuse]
+    APP --> GUARD[Guardrails<br/>input/output filters]
+    APP --> COST[Cost tracking<br/>tokens × price]
+
+    classDef green fill:#ecfdf5,stroke:#34d399
+    classDef blue fill:#eff6ff,stroke:#60a5fa
+    classDef yellow fill:#fffbeb,stroke:#fbbf24
+    class HF,RND green
+    class RAIL,CLOUD blue
+    class OBS,GUARD,COST yellow
+</pre>
+
+        <div class="stage__body">
+          <ul>
+            <li>Wrap your model in <strong>FastAPI</strong>. Validate input/output with <strong>Pydantic</strong>.</li>
+            <li>Containerize with <strong>Docker</strong> so it runs the same everywhere.</li>
+            <li>Free / cheap hosting: <strong>Hugging Face Spaces</strong> (free GPU on a queue), <strong>Render</strong> (free web tier), <strong>Railway</strong> ($5/mo Hobby).</li>
+          </ul>
+          <div class="callout callout--warn"><strong>Don't ship without:</strong> logging, error handling, rate limiting, a kill-switch, and a per-request token-cost log.</div>
+        </div>
+      </article>
+
+      <!-- Stage 13 -->
+      <article class="stage">
+        <div class="stage__head">
+          <span class="stage__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          <div class="stage__title">
+            <span class="stage__num">Stage 13</span>
+            <h3>Responsible AI</h3>
+            <div class="stage__meta">
+              <span><b>Time:</b> ongoing</span>
+              <span class="difficulty"><b>Difficulty:</b> <i class="on"></i><i class="on"></i><i></i></span>
+              <span><b>Not a stage — a lens</b></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__tldr">Treat user input as untrusted. Treat model output as confidently wrong until proven otherwise. Cite sources, log everything, and never paste PII into someone else's API.</p>
+        <div class="stage__body">
+          <ul>
+            <li><strong>Hallucinations:</strong> assume they happen. Cite sources, validate, add a confidence step.</li>
+            <li><strong>Prompt injection / jailbreaks:</strong> never let user input override system instructions for sensitive actions.</li>
+            <li><strong>Data leakage:</strong> don't send PII, secrets, or proprietary data to third-party APIs without consent. Self-host when in doubt.</li>
+            <li><strong>Bias &amp; fairness:</strong> test across demographics; "default" outputs aren't neutral.</li>
+            <li><strong>Evals &amp; guardrails:</strong> <a class="link" href="https://github.com/explodinggradients/ragas">Ragas</a>, <a class="link" href="https://github.com/confident-ai/deepeval">DeepEval</a>, <a class="link" href="https://github.com/guardrails-ai/guardrails">Guardrails AI</a>, <a class="link" href="https://github.com/NVIDIA/NeMo-Guardrails">NeMo Guardrails</a>.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============== TOOLKIT ============== -->
+  <section id="toolkit">
+    <div class="col-wide">
+      <span class="eyebrow">Minimal toolkit</span>
+      <h2>One row, one decision.</h2>
+      <p class="prose" style="color: var(--muted); max-width: 60ch;">There are 200 ways to do every step. Here's the smallest set that gets you to a deployed app — picked because they're free, popular, and won't trap you in a niche later.</p>
+
+      <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Area</th><th>Pick this</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Language</td><td>Python 3.10+</td><td>Every GenAI library lives here.</td></tr>
+          <tr><td>DL framework</td><td>PyTorch</td><td>What modern papers and Hugging Face use.</td></tr>
+          <tr><td>LLM API (free)</td><td>Google Gemini API</td><td>Most generous free tier in 2026.</td></tr>
+          <tr><td>LLM library (open)</td><td>HF Transformers</td><td>Standard for any open model.</td></tr>
+          <tr><td>Local model runner</td><td>Ollama</td><td>One command to run Llama, Qwen, Gemma.</td></tr>
+          <tr><td>Orchestration</td><td>LangChain or LlamaIndex</td><td>Pick one and commit.</td></tr>
+          <tr><td>Vector DB (start)</td><td>FAISS or Chroma</td><td>Local, free, zero ops.</td></tr>
+          <tr><td>UI prototype</td><td>Gradio or Streamlit</td><td>Demo in &lt; 50 lines.</td></tr>
+          <tr><td>Validation</td><td>Pydantic v2</td><td>Stops malformed JSON from breaking prod.</td></tr>
+          <tr><td>Agent framework</td><td>LangGraph</td><td>Most controllable; pairs with LangChain.</td></tr>
+          <tr><td>Observability</td><td>LangSmith or Langfuse</td><td>See every prompt and response.</td></tr>
+          <tr><td>Deployment</td><td>Docker + HF Spaces</td><td>Free, fast, public URL.</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== COSTS ============== -->
+  <section id="cost">
+    <div class="col-wide">
+      <span class="eyebrow">What this actually costs</span>
+      <h2>Real numbers, not vibes.</h2>
+      <p class="prose" style="color: var(--muted); max-width: 60ch;">For a learner doing the entire notebook end-to-end. You can complete Stages 0 through 10 for $0 if you stick to the free tiers.</p>
+
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Provider</th><th>Tier</th><th>What you can do</th></tr></thead>
+        <tbody>
+          <tr><td>Google AI Studio (Gemini)</td><td>Free</td><td>Run all notebook examples. Daily request limits, plenty for learning.</td></tr>
+          <tr><td>OpenAI</td><td>$5 credit</td><td>~5 million input tokens on <code>gpt-4o-mini</code>. Lasts most learners weeks.</td></tr>
+          <tr><td>Anthropic Claude</td><td>$5 credit</td><td>Similar — burnable on the Haiku tier.</td></tr>
+          <tr><td>Hugging Face</td><td>Free</td><td>Datasets, model downloads, Spaces hosting (CPU).</td></tr>
+          <tr><td>Ollama (local)</td><td>Free</td><td>Runs on your laptop. 8GB RAM = 7B-parameter model territory.</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="callout callout--ok"><strong>Beginner play:</strong> start with Gemini's free tier + Ollama for local. You'll spend $0 through Stage 10.</div>
+    </div>
+  </section>
+
+  <!-- ============== PROJECTS ============== -->
+  <section id="projects">
+    <div class="col">
+      <span class="eyebrow">Build these, in this order</span>
+      <h2>Six projects that will land you interviews.</h2>
+      <p class="prose" style="color: var(--muted);">A portfolio is six small things you'd actually use, not one impressive thing you abandoned. Personal beats impressive — every time.</p>
+
+      <ol class="numlist" style="margin-top: 24px;">
+        <li><span><strong>Smart Summarizer</strong> — paste an article, get a 5-bullet summary. <em>Stage 7.</em></span></li>
+        <li><span><strong>AI Resume Reviewer</strong> — upload a resume, get structured feedback as JSON via Pydantic. <em>Stage 7.</em></span></li>
+        <li><span><strong>Code Explainer Bot</strong> — paste a function, get a beginner explanation. <em>Stage 7.</em></span></li>
+        <li><span><strong>Chat with your PDF</strong> — RAG over a textbook or company handbook. <em>Stage 8.</em></span></li>
+        <li><span><strong>Mini Research Agent</strong> — a goal in, a sourced report out. <em>Stage 10.</em></span></li>
+        <li><span><strong>Capstone</strong> — something <em>you'd</em> actually use. A meal planner from a fridge photo. A journal that reflects with you. A study buddy that quizzes you from your own notes. <strong>Personal &gt; impressive.</strong></span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============== 12-WEEK PLAN ============== -->
+  <section id="plan">
+    <div class="col-wide">
+      <span class="eyebrow">12-week sprint</span>
+      <h2>One quarter. One portfolio.</h2>
+      <p class="prose" style="color: var(--muted); max-width: 60ch;">Doable part-time at ~10 hours/week. Doable full-time in 6–8 weeks if you can give it your day job's attention.</p>
+
+<pre class="mermaid">
+gantt
+    title 12-Week GenAI Sprint
+    dateFormat  YYYY-MM-DD
+    axisFormat  W%V
+
+    section Foundations
+    Python + Math basics            :a1, 2026-01-05, 14d
+    section ML / DL
+    ML + Deep Learning              :a2, after a1, 14d
+    section Applied
+    Transformers + LLM APIs         :a3, after a2, 14d
+    Prompt Engineering + RAG        :a4, after a3, 14d
+    section Advanced
+    Agents + Frameworks             :a5, after a4, 14d
+    section Ship It
+    Capstone build                  :a6, after a5, 7d
+    Deployment + portfolio polish   :a7, after a6, 7d
+</pre>
+
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Weeks</th><th>Focus</th><th>Deliverable</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>Python + math basics</td><td>Public repo with 3 small scripts</td></tr>
+          <tr><td>3–4</td><td>ML + Deep Learning</td><td>Tiny image or text classifier</td></tr>
+          <tr><td>5–6</td><td>Transformers + LLM APIs</td><td>A "tool" using a hosted LLM</td></tr>
+          <tr><td>7–8</td><td>Prompt engineering + RAG</td><td>Chat-with-PDF deployed publicly</td></tr>
+          <tr><td>9–10</td><td>Agents + frameworks</td><td>A small agent with 2–3 tools</td></tr>
+          <tr><td>11</td><td>Capstone build</td><td>One project you'd genuinely use</td></tr>
+          <tr><td>12</td><td>Deployment + polish</td><td>README, demo video, blog post</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== MISTAKES ============== -->
+  <section id="mistakes">
+    <div class="col">
+      <span class="eyebrow">The seven traps</span>
+      <h2>Common beginner mistakes.</h2>
+      <p class="prose" style="color: var(--muted);">If you hit one, you're not behind — you're average. Reading them up front saves you the wasted weeks.</p>
+
+      <ol class="numlist" style="margin-top: 24px;">
+        <li><span><strong>Tutorial loop.</strong> You finish 12 courses and have nothing on GitHub. Build first; learn while building.</span></li>
+        <li><span><strong>Jumping to fine-tuning.</strong> 95% of "fine-tuning" tasks are actually RAG or prompt problems.</span></li>
+        <li><span><strong>Skipping evaluation.</strong> "It looked good in 3 examples" isn't a result. Build a 20–50 example eval set early and re-run it after every change.</span></li>
+        <li><span><strong>Ignoring tokens.</strong> Tokens are time, money, and quality. Always log them per request.</span></li>
+        <li><span><strong>Trusting LLM output blindly.</strong> Validate JSON. Verify facts. Treat it like a junior engineer who's confident but new.</span></li>
+        <li><span><strong>Over-frameworking.</strong> LangChain/LangGraph are great when you need them. For a 30-line script, plain <code>requests</code> + the SDK is fine.</span></li>
+        <li><span><strong>Building in secret.</strong> Tweet your progress, push half-finished repos, write up what you broke. The portfolio <em>is</em> the credential.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============== RESOURCES ============== -->
+  <section id="resources">
+    <div class="col-wide">
+      <span class="eyebrow">Free, ranked</span>
+      <h2>The only resources I'd recommend twice.</h2>
+      <p class="prose" style="color: var(--muted); max-width: 60ch;">Skipping a course you didn't need is a feature. These six are the ones that pay for themselves.</p>
+
+      <div class="reslist">
+        <a class="res" href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">
+          <div class="res__name">Andrej Karpathy — Neural Networks: Zero to Hero
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </div>
+          <div class="res__desc">The best deep-learning video series ever made. Builds GPT from scratch in front of you.</div>
+        </a>
+        <a class="res" href="https://huggingface.co/learn/llm-course" target="_blank" rel="noopener">
+          <div class="res__name">Hugging Face NLP + LLM Course
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </div>
+          <div class="res__desc">Practical, free, modern. The fastest way to become productive with the open-source stack.</div>
+        </a>
+        <a class="res" href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">
+          <div class="res__name">DeepLearning.AI short courses
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </div>
+          <div class="res__desc">One-hour dives on Prompting, RAG, LangChain, Agents. High signal-to-noise.</div>
+        </a>
+        <a class="res" href="https://course.fast.ai/" target="_blank" rel="noopener">
+          <div class="res__name">fast.ai — Practical Deep Learning for Coders
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </div>
+          <div class="res__desc">Top-down. You ship a model in lecture one and only later learn what you built.</div>
+        </a>
+        <a class="res" href="https://fullstackdeeplearning.com/" target="_blank" rel="noopener">
+          <div class="res__name">Full Stack Deep Learning
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </div>
+          <div class="res__desc">Production-grade ML systems — what tutorials skip and your team will ask about in week one.</div>
+        </a>
+        <a class="res" href="https://github.com/anthropics/anthropic-cookbook" target="_blank" rel="noopener">
+          <div class="res__name">Anthropic + OpenAI Cookbooks
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </div>
+          <div class="res__desc">Copy-pasteable patterns from the model labs themselves. Your fastest path from idea to working call.</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== GLOSSARY ============== -->
+  <section id="glossary">
+    <div class="col">
+      <span class="eyebrow">Glossary</span>
+      <h2>Speak the language.</h2>
+      <p class="prose" style="color: var(--muted);">The thirteen words you'll hear every day. Memorize the definitions and you'll keep up in any meeting.</p>
+
+      <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Term</th><th>One-line meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Token</td><td>The chunk of text the model actually sees. ~4 characters or ¾ of a word.</td></tr>
+          <tr><td>Context window</td><td>How many tokens the model can read at once (input + output combined).</td></tr>
+          <tr><td>Embedding</td><td>A vector that represents meaning. Two similar sentences, two close vectors.</td></tr>
+          <tr><td>Vector DB</td><td>A database that stores embeddings and finds nearest neighbors fast.</td></tr>
+          <tr><td>Temperature</td><td>Randomness knob. 0 = same answer every time, 1 = creative.</td></tr>
+          <tr><td>System prompt</td><td>Persistent instructions the model follows for the whole conversation.</td></tr>
+          <tr><td>Hallucination</td><td>Confident-sounding but wrong output. Mitigate with RAG + citations.</td></tr>
+          <tr><td>RAG</td><td>"Look it up in my docs, then answer using what you found."</td></tr>
+          <tr><td>Fine-tuning</td><td>Updating the model's weights on your data — usually a small LoRA adapter.</td></tr>
+          <tr><td>Agent</td><td>An LLM that can choose to call tools in a loop until a goal is met.</td></tr>
+          <tr><td>Tool / function calling</td><td>The LLM emits a JSON call; your code runs it; the result goes back.</td></tr>
+          <tr><td>Prompt injection</td><td>A user smuggling instructions into your prompt to override system rules.</td></tr>
+          <tr><td>Inference</td><td>Running the model to get a result (vs. training, which builds the model).</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CLOSING ============== -->
+  <section>
+    <div class="col">
+      <div class="ornament" aria-hidden="true"><i></i><i></i><i></i></div>
+      <h2 style="text-align:center; max-width: 18ch; margin: 0 auto 18px;">Ship something this weekend.</h2>
+      <p class="prose" style="text-align:center; color: var(--muted); max-width: 52ch; margin: 0 auto;">A bad version of Stage 7 is worth more than a perfect understanding of Stage 13 you'll never reach. Open the notebook. Run the first cell. The rest is just compounding.</p>
+      <div class="ctas" style="justify-content: center; margin-top: 28px;">
+        <a class="btn btn--primary" href="https://colab.research.google.com/drive/1Lpdk15uITxlHoQesHdS-PSQlWSAtTQvf?usp=sharing/" target="_blank" rel="noopener">
+          Open the notebook
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/purnendu-das-in/genai-roadmap-for-juniors" target="_blank" rel="noopener">
+          Star the repo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="foot">
+    <div class="foot__inner">
+      <div>Built by <a href="https://purnendudas.in" target="_blank" rel="noopener">Purnendu Das</a>. Open-source &amp; PRs welcome.</div>
+      <div>
+        <a href="https://github.com/purnendu-das-in/genai-roadmap-for-juniors" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/purnendu-das-in/genai-roadmap-for-juniors/issues" target="_blank" rel="noopener">Found a bug?</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============== MERMAID ============== -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    function renderMermaid() {
+      // also support markdown-rendered mermaid blocks if any
+      document.querySelectorAll('pre > code.language-mermaid').forEach(code => {
+        const pre = code.parentElement;
+        const replacement = document.createElement('pre');
+        replacement.className = 'mermaid';
+        replacement.textContent = code.textContent;
+        pre.replaceWith(replacement);
+      });
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        securityLevel: 'loose',
+        fontFamily: 'Inter, system-ui, sans-serif',
+        themeVariables: {
+          primaryColor: '#fafaf9',
+          primaryTextColor: '#18181b',
+          primaryBorderColor: '#a8a29e',
+          lineColor: '#78716c',
+          tertiaryColor: '#f5f5f4',
+          fontSize: '14px'
+        },
+        flowchart: { htmlLabels: true, useMaxWidth: true, curve: 'basis' }
+      });
+      mermaid.run({ querySelector: 'pre.mermaid' });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderMermaid);
+    } else {
+      renderMermaid();
+    }
+  </script>
+
+</body>
+</html>
