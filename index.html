@@ -465,18 +465,19 @@ permalink: /
     .lightbox__inner {
       background: #fff;
       border-radius: 14px;
-      padding: clamp(20px, 4vw, 56px);
-      max-width: 96vw;
+      padding: clamp(20px, 3vw, 40px);
+      width: min(1400px, 94vw);
       max-height: 92vh;
       overflow: auto;
-      width: auto;
       box-shadow: 0 30px 80px -20px rgba(0,0,0,.5);
     }
     .lightbox__inner svg {
-      width: auto !important;
-      max-width: 100%;
+      width: 100% !important;
       height: auto !important;
-      display: block; margin: 0 auto;
+      max-width: 100% !important;
+      max-height: 80vh !important;
+      display: block !important;
+      margin: 0 auto !important;
     }
     .lightbox__close {
       position: absolute; top: 20px; right: 24px;
@@ -1726,11 +1727,14 @@ gantt
         if (!svg) return;
         inner.innerHTML = '';
         const clone = svg.cloneNode(true);
-        // unlock dimensions so it scales nicely in the lightbox
+        // Strip mermaid's inline sizing — CSS rules in .lightbox__inner svg take over
         clone.removeAttribute('style');
-        clone.style.maxWidth = 'min(1500px, 90vw)';
-        clone.style.width = '100%';
-        clone.style.height = 'auto';
+        clone.removeAttribute('width');
+        clone.removeAttribute('height');
+        // Preserve aspect ratio via viewBox (mermaid always sets one)
+        if (!clone.getAttribute('preserveAspectRatio')) {
+          clone.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        }
         inner.appendChild(clone);
         lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden', 'false');
