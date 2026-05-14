@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" role="img" aria-label="Microsoft Azure">
+  <path d="M64 13 24 82h36l7-18 23 18h46L79 14 67 49 98 49 64 13Z" fill="#0078d4"/>
+  <path d="M79 14 67 49 98 49 136 82Z" fill="#50a8f2" opacity=".9"/>
+  <text x="84" y="91" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" text-anchor="middle" fill="#1f2937">Azure</text>
+</svg>

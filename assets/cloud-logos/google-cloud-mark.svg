@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Google Cloud">
+  <rect width="64" height="64" rx="18" fill="#fff"/>
+  <path d="M27 40h20a10 10 0 0 0 1-19 15 15 0 0 0-27-4 13 13 0 0 0 6 23Z" fill="none" stroke="#4285f4" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 20a15 15 0 0 1 25 1" fill="none" stroke="#34a853" stroke-width="6.2" stroke-linecap="round"/>
+  <path d="M16 39a13 13 0 0 1 8-25" fill="none" stroke="#fbbc04" stroke-width="6.2" stroke-linecap="round"/>
+  <path d="M27 40H16" fill="none" stroke="#ea4335" stroke-width="6.2" stroke-linecap="round"/>
+</svg>
