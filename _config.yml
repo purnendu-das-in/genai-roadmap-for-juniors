@@ -1,5 +1,6 @@
 theme: jekyll-theme-cayman
-title: Full Stack GenAI Developer Roadmap 2026 Edition
-description: "A practical, interview ready full stack GenAI developer roadmap for 2026: LLM APIs, prompting, RAG, agents, evals, cloud deployment, and portfolio timelines."
+title: "Full Stack GenAI Roadmap 2026: Beginner to Interview Ready Developer"
+description: "A beginner-friendly full stack GenAI developer roadmap for 2026 with Python, LLM APIs, prompt engineering, RAG, agents, evals, AWS, GCP, Azure deployment, interview prep, projects, and a practical 12-week timeline."
+url: "https://genai-roadmap.purnendudas.in"
 show_downloads: false
 lang: en

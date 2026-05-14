@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://genai-roadmap.purnendudas.in/sitemap.xml
