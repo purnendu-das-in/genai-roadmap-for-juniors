@@ -62,7 +62,7 @@ Before applying, make sure your portfolio proves these six abilities:
 | Skill | What you should be able to do | Proof |
 |---|---|---|
 | Software foundation | Python, Git, CLI, virtual envs, HTTP, JSON, env vars, light tests | Project folder with scripts, setup, screenshots, and project notes |
-| LLM API fluency | Streaming, retries, rate limits, structured output, token/cost logs | Hosted summarizer or resume reviewer |
+| LLM API fluency | Streaming, retries, rate limits, structured output, token/cost logs | Hosted summarizer or support ticket triage tool |
 | RAG quality | Load, chunk, embed, store, retrieve, re-rank, cite, evaluate | Chat-with-PDF with citations + eval sheet |
 | Agents/tools | Function calling, typed schemas, tool tests, memory, iteration caps | Research agent with 2–3 tools and traces |
 | Production habits | FastAPI, Docker, Pydantic, observability, guardrails, secrets | Public URL with logs, failures, and cost notes |
@@ -337,7 +337,7 @@ For a learner doing the roadmap end-to-end, keep the first pass cheap: free tier
 ## Project ideas (build these, in order)
 
 1. **Smart Summarizer** — paste an article → get a 5-bullet summary. *(Stage 7)*
-2. **AI Resume Reviewer** — upload resume → structured feedback (JSON via Pydantic). *(Stage 7)*
+2. **AI Support Ticket Triage** — paste a customer issue → category, priority, confidence, and suggested first reply (JSON via Pydantic). *(Stage 7)*
 3. **Code Explainer Bot** — paste a function → get a beginner explanation. *(Stage 7)*
 4. **Chat with your PDF** — RAG over a textbook or company handbook. *(Stage 8)*
 5. **Mini Research Agent** — a goal in → a sourced report out. *(Stage 10)*
